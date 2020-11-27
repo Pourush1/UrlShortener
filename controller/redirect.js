@@ -1,12 +1,9 @@
-const express = require('express');
-const router = express.Router();
-
 const Url = require('../models/Url');
 
-router.get('/:shortUrlCode', async (req, res) => {
+const redirect =  async (req, res) => {
+  const {shortUrlCode} = req.params
   try {
-    const url = await Url.findOne({ urlCode: req.params.shortUrlCode });
-
+    const url = await Url.findOne({ shortUrlCode});
     if (url) {
       return res.redirect(url.longUrl);
     } else {
@@ -16,6 +13,6 @@ router.get('/:shortUrlCode', async (req, res) => {
     console.error(err);
     res.status(500).json('Server error');
   }
-});
+};
 
-module.exports = router;
+module.exports = {redirect};
