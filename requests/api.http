@@ -1,6 +1,0 @@
-POST http://localhost:5000/api/url/shorten
-Content-Type: application/json
-
-{
-  "longUrl": "https://www.amazon.com/dp/B01H1HENP2?ref_=fly_sa_sto_rwt_stet_r_2y4y_pdc_null_B01H1HENP2"
-}
