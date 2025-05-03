@@ -1,8 +1,10 @@
-const router = require('express').Router()
-const ShortUrlController = require('./controller/createShortUrl')
-const RedirectController = require('./controller/redirect')
+const express = require('express');
+const router = express.Router();
+const ShortUrlController = require('./controller/createShortUrl');
 
-router.get('/:shortUrlCode', RedirectController.redirect)
-router.post('/api/url/shorten', ShortUrlController.storeShortenUrl)
+const apiRouter = express.Router();
+router.use('/api', apiRouter);
 
-module.exports = router
+apiRouter.post('/url/shorten', ShortUrlController.storeShortenUrl);
+
+module.exports = router;

@@ -5,8 +5,6 @@ A robust RESTful API for shortening URLs built with Node.js, Express, and MongoD
 ## Features
 
 - Create shortened URLs from long URLs
-- Automatic redirection from short URL to original URL
-- Unique short codes using nanoid
 - MongoDB storage for persistence
 - RESTful API design
 
@@ -84,14 +82,6 @@ Response:
 }
 ```
 
-#### Redirect to Original URL
-
-```
-GET /:code
-```
-
-Automatically redirects to the original URL associated with the provided code.
-
 ## Deployment
 
 For production deployment:
@@ -107,4 +97,5 @@ For production deployment:
 - Implement URL validation to prevent malicious URLs
 
 ## License
+
 MIT
