@@ -19,7 +19,7 @@ const storeShortenUrl = async (req, res) => {
       let longurlInDatabase = await Url.findOne({ longUrl });
 
       if (longurlInDatabase) {
-        res.json(longurlInDatabase);
+        res.json(`Data already exists: ${longurlInDatabase}`);
       } else {
         let shortUrlCode = await nanoid(6);
         shortUrlCode = shortUrlCode.toLowerCase();
