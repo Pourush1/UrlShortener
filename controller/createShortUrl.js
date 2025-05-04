@@ -1,13 +1,16 @@
 const validUrl = require('valid-url');
 const config = require('config');
 const { nanoid } = require('nanoid');
+require('dotenv').config();
 
 const Url = require('../models/Url');
 
 const storeShortenUrl = async (req, res) => {
   const { longUrl } = req.body;
   console.log(`longUrl: ${longUrl}`);
-  const baseUrl = config.get('baseUrl');
+
+  // Get baseUrl from environment variable or config
+  const baseUrl = process.env.BASE_URL || config.get('baseUrl');
   console.log(`baseUrl: ${baseUrl}`);
 
   if (!validUrl.isUri(baseUrl)) {
@@ -23,7 +26,7 @@ const storeShortenUrl = async (req, res) => {
       } else {
         let shortUrlCode = await nanoid(6);
         shortUrlCode = shortUrlCode.toLowerCase();
-        const shortUrl = baseUrl + '/' + shortUrlCode;
+        const shortUrl = baseUrl + '/api/' + shortUrlCode;
         const urlModelData = {
           shortUrlCode,
           longUrl,
@@ -31,14 +34,14 @@ const storeShortenUrl = async (req, res) => {
           date: new Date(),
         };
         const created = await Url.create(urlModelData);
-        res.json(created);
+        return res.json(created);
       }
     } catch (err) {
       console.error(err);
-      res.status(500).json('Server error');
+      return res.status(500).json('Server error');
     }
   } else {
-    res.status(401).json('Invalid long url Poursuh');
+    return res.status(401).json('Invalid long url');
   }
 };
 
