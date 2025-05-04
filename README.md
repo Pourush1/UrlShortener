@@ -5,6 +5,8 @@ A robust RESTful API for shortening URLs built with Node.js, Express, and MongoD
 ## Features
 
 - Create shortened URLs from long URLs
+- Automatic redirection from short URL to original URL
+- Unique short codes using nanoid
 - MongoDB storage for persistence
 - RESTful API design
 
@@ -38,6 +40,12 @@ A robust RESTful API for shortening URLs built with Node.js, Express, and MongoD
        "mongoURI": "YOUR_MONGODB_CONNECTION_STRING",
        "baseUrl": "http://localhost:5001"
      }
+     ```
+   - Or use environment variables in a `.env` file (recommended for security):
+     ```
+     MONGO_URI=your_mongodb_connection_string
+     BASE_URL=http://localhost:5001
+     PORT=5001
      ```
    - **IMPORTANT**: Never commit your actual MongoDB credentials to version control
 
@@ -77,10 +85,26 @@ Response:
 {
   "shortUrlCode": "abc123",
   "longUrl": "https://example.com/very/long/url/that/needs/shortening",
-  "shortUrl": "http://localhost:5001/abc123",
+  "shortUrl": "http://localhost:5001/api/abc123",
   "date": "2023-05-02T12:34:56.789Z"
 }
 ```
+
+#### Redirect to Original URL
+
+```
+GET /api/:shortUrlCode
+```
+
+Automatically redirects to the original URL associated with the provided code.
+
+For example, when a user visits:
+
+```
+http://localhost:5001/api/abc123
+```
+
+They will be redirected to the corresponding long URL.
 
 ## Deployment
 
