@@ -7,11 +7,7 @@ const Url = require('../models/Url');
 
 const storeShortenUrl = async (req, res) => {
   const { longUrl } = req.body;
-  console.log(`longUrl: ${longUrl}`);
-
-  // Get baseUrl from environment variable or config
   const baseUrl = process.env.BASE_URL || config.get('baseUrl');
-  console.log(`baseUrl: ${baseUrl}`);
 
   if (!validUrl.isUri(baseUrl)) {
     return res.status(401).json('Invalid base url');
